@@ -1,6 +1,15 @@
-"""МКР. Завдання 02: Код помилки errno."""
-
+import errno
+import os
 
 def solve(code: int) -> str:
-    """Реалізуйте за умовою завдання."""
-    raise NotImplementedError  # TODO: реалізуйте за карткою
+    """Завдання 2: Код помилки errno"""
+    if code not in errno.errorcode or code <= 0:
+        return f"Невідомий код: {code}"
+    
+    name = errno.errorcode[code]
+    # OSError автоматично визначає відповідний клас винятку за кодом
+    exc = OSError(code, "")
+    exc_class = exc.__class__.__name__
+    explanation = os.strerror(code)
+    
+    return f"{name}: {exc_class}: {explanation}"
